@@ -3,11 +3,17 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = "trivia"
-database_path = "postgres://{}/{}".format('postgres:adi123@localhost:5432', database_name)
+DB_HOST = os.getenv('DB_HOST', 'localhost:5432')
+DB_USER = os.getenv('DB_USER', 'postgres')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'adi123')
+DB_NAME = os.getenv('DB_NAME', 'trivia')
+database_path = 'postgresql+psycopg2://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+
+#database_name = os.getenv('DB_NAME')
+#db_url = os.getenv('DB_USER') + ':' + os.getenv('DB_PASSWORD') + '@' + os.getenv('DB_HOST')
+#database_path = "postgres://{}/{}".format(db_url, database_name)
 
 db = SQLAlchemy()
-
 '''
 setup_db(app)
     binds a flask application and a SQLAlchemy service
